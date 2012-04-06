@@ -2,15 +2,15 @@
   <?php 
   if (isset($errors)) {
     if (count($errors) == 1) {
-      echo "<p>There is 1 potential issue you should look into.</p>";
+      echo "<p>There is 1 potential issue you should check out.</p>";
     } else {
-      echo "<p>There are " . count($errors) . " potential issues you should look into.</p>";
+      echo "<p>There are " . count($errors) . " potential issues you should check out.</p>";
     }
       
     echo "<ul>";
     foreach($errors as $error => $fix) {
       echo "<li>{$error}";
-      echo "<br/>To fix: {$fix}</li>";
+      echo "<span><em>To fix try this:</em> {$fix}</span></li>";
     }
     echo "</ul>";
   } else {

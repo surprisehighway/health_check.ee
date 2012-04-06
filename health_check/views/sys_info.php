@@ -85,3 +85,25 @@
     </tr>
   </table>
 </div> <!-- /.sysinfo -->
+
+<div class="pathinfo">
+  <table>
+    <thead>
+      <tr>
+        <th colspan="2">Path Info</th>
+      </tr>
+    </thead>
+    <tr>
+      <td class="label">theme</td>
+      <td><?= PATH_THEMES ?></td>
+    </tr>
+    <tr>
+      <td class="label">app</td>
+      <td><?= APPPATH ?></td>
+    </tr>
+    <tr>
+      <td class="label">third_party</td>
+      <td><?= PATH_THIRD ?></td>
+    </tr>
+  </table>
+</div> <!-- /#healthcheck_pathinfo -->

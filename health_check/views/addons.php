@@ -15,17 +15,25 @@
       <li><?= $extension['name'] ?> <?= $extension['version'] ?></li>
     <?php } ?>
     </ul>
-  </div>
-  
-  <div class="section">  
+
     <strong>Accessories</strong>
     <ul>
     <?php foreach($accessories as $accessory) { ?>
       <li><?= $accessory['name'] ?> <?= $accessory['accessory_version'] ?></li>
     <?php } ?>
     </ul>
+    
   </div>
-  
+
+  <div class="section">  
+    <strong>Plugins</strong>
+    <ul>
+    <?php foreach($plugins as $plugin) { ?>
+      <li><?= $plugin['pi_name'] ?> <?= $plugin['pi_version'] ?></li>
+    <?php } ?>
+    </ul>
+  </div>
+
   <div class="section last">  
     <strong>Field Types</strong>
     <ul>
@@ -35,25 +43,3 @@
     </ul>
   </div>
 </div> <!-- /#healthcheck_addons -->
-
-<div class="pathinfo">
-  <table>
-    <thead>
-      <tr>
-        <th colspan="2">Path Info</th>
-      </tr>
-    </thead>
-    <tr>
-      <td class="label">theme</td>
-      <td><?= PATH_THEMES ?></td>
-    </tr>
-    <tr>
-      <td class="label">app</td>
-      <td><?= APPPATH ?></td>
-    </tr>
-    <tr>
-      <td class="label">third_party</td>
-      <td><?= PATH_THIRD ?></td>
-    </tr>
-  </table>
-</div> <!-- /#healthcheck_pathinfo -->

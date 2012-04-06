@@ -23,6 +23,16 @@ Optional: To limit the user groups or pages that see this accessory (e.g. limit 
 
 h2. Changelog
 
+Version 0.1.2 - 3/21/2012
+* Now displaying add-ons in alphabetical order
+* Now displaying file upload directories and checking if they are writable
+* Now displaying installed plugins
+* Tweaked status to display more prominently
+* Switched away from a method that is deprecated after EE 2.4
+* Fixed bug that was reporting the wrong accessory version number (noob mistake)
+* Fixed bug that threw PHP warnings if PHP is set to use open_basedir restrictions
+* Fixed bug where we unnecessarily suggested a fix if your session.save_path is set to no value
+
 Version 0.1.1 - 11/17/2010
  * Fixed a bug that threw a SQL error if the comment module isn't installed
  * Made a few minor display changes to make capitalization more consistent

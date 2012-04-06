@@ -12,7 +12,7 @@ TODO:
  * Health Check Accessory
  *
  * @package			Health Check
- * @version			0.1.1
+ * @version			0.1.2
  * @author			Jason Siffring <http://surprisehighway.com>
  * @copyright 	Copyright (c) 2010 Jason Siffring <http://surprisehighway.com>
  * @license 		http://creativecommons.org/licenses/by-nc-sa/3.0/ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -20,11 +20,11 @@ TODO:
 
 class Health_check_acc {
 
-	var $name		= 'Health Check';
-	var $id			= 'health_check';
-	var $version		= '0.1.0';
-	var $description	= 'Displays information about the configuration and general health of your EE system. Useful for maintenance and troubleshooting. One possible use is to copy and paste the output into an EE or add-on support request so you can get help faster.';
-	var $sections		= array();
+	var $name         = 'Health Check';
+	var $id           = 'health_check';
+	var $version      = '0.1.2';
+	var $description  = 'Displays information about the configuration and general health of your EE system. Useful for maintenance and troubleshooting. One possible use is to copy and paste the output into an EE or add-on support request so you can get help faster.';
+	var $sections     = array();
 
 	/**
 	 * Constructor
@@ -43,19 +43,46 @@ class Health_check_acc {
   * @access	public
   * @return	void
   */
+
 	function set_sections()
 	{  
-    // add our CSS file to the CP
-    $css_file = $this->EE->config->item('theme_folder_url') . 'third_party/health_check/healthcheck.css';
-    $this->EE->cp->add_to_head('<link rel="stylesheet" type="text/css" media="all" href="' . $css_file . '" />');
-    
-    // setup the accessory sections
-		$this->sections['System Info'] = $this->EE->load->view('sys_info', $this->_system_info(), TRUE);  
-		$this->sections['Add-Ons'] = $this->EE->load->view('addons', $this->_list_addons(), TRUE);
-    $this->sections['Status'] = $this->EE->load->view('status', $this->_check_status(), TRUE);
+
+	    // add our CSS file to the CP
+	    $css_file = $this->EE->config->item('theme_folder_url') . 'third_party/health_check/healthcheck.css';
+	    $this->EE->cp->add_to_head('<link rel="stylesheet" type="text/css" media="all" href="' . $css_file . '" />');
+	    
+		// setup the accessory sections
+		$this->sections['Status']       = $this->EE->load->view('status', $this->_check_status(), TRUE);
+		$this->sections['System Info']  = $this->EE->load->view('sys_info', $this->_system_info(), TRUE);  
+		$this->sections['Add-Ons']      = $this->EE->load->view('addons', $this->_list_addons(), TRUE);
+		$this->sections['File Upload Directories'] = $this->EE->load->view('filemanager', $this->_get_file_upload_paths(), TRUE);
 	}
 
 
+	function _get_file_upload_paths()
+	{
+		$dirs = array();
+
+		$this->EE->load->model('file_upload_preferences_model');
+		
+		if (method_exists($this->EE->file_upload_preferences_model, 'get_file_upload_preferences')) {
+			// for ee 2.4 and newer
+			$dirs = $this->EE->file_upload_preferences_model->get_file_upload_preferences($this->EE->session->userdata('group_id'));
+		} else {
+			// for older than ee 2.4
+			$query = $this->EE->file_upload_preferences_model->get_upload_preferences($this->EE->session->userdata('group_id'));
+			foreach($query->result_array() as $dir)
+			{
+				$dirs[$dir['id']] = $dir;
+			}
+		}
+
+		ksort($dirs);
+
+		$vars['file_uploads'] = $dirs;
+		return $vars;
+
+	}
   // --------------------------------------------------------------------
   // Check EE Version
   // Looks to see if there is a newer build or version of EE
@@ -130,17 +157,22 @@ class Health_check_acc {
       $safe_mode = "off"; 
     }
     $vars['php']['safe_mode'] = $safe_mode;
+    $vars['php']['open_basedir'] = ini_get('open_basedir');
     $vars['php']['max_execution_time'] = ini_get('max_execution_time');
     $vars['php']['upload_max_filesize'] = ini_get('upload_max_filesize');
     $vars['php']['max_input_time'] = ini_get('max_input_time');
     $vars['php']['memory_limit'] = ini_get('memory_limit');
     
     // is the session save path writable?
-    if (is_writable(session_save_path())) {
-      $vars['php']['session_save_path'] = 'writable';
+    if (session_save_path() == '') {
+    	$vars['php']['session_save_path'] = 'not set';
     } else {
-      $vars['php']['session_save_path'] = 'not writable';
-    }
+	    if (@is_writable(session_save_path())) {
+	      $vars['php']['session_save_path'] = 'writable';
+	    } else {
+	      $vars['php']['session_save_path'] = 'not writable';
+	    }
+	}
 
     // browser info
     $this->CI->load->library('user_agent');
@@ -165,8 +197,18 @@ class Health_check_acc {
       'modules'     => $this->EE->addons->get_installed('modules'),
       'accessories' => $this->EE->addons->get_installed('accessories'),
       'extensions'  => $this->EE->addons->get_installed('extensions'),
-      'fieldtypes'  => $this->EE->addons->get_installed('fieldtypes')
+      'fieldtypes'  => $this->EE->addons->get_installed('fieldtypes'),
     );
+
+    ksort($vars['modules']);
+	ksort($vars['accessories']);
+	ksort($vars['extensions']);
+	ksort($vars['fieldtypes']);
+
+	// get plugins
+	$vars['plugins'] = $this->EE->addons_model->get_plugins();
+	ksort($vars['plugins']);
+
     return($vars);
   }
   
@@ -175,8 +217,9 @@ class Health_check_acc {
   //
   function _check_status()
   {
-    $vars = array();
-    
+   
+	$vars = array();
+
     // an array of files or directories and the required permission for each
     $files = array(
       APPPATH . 'config/config.php' => 666,
@@ -194,18 +237,35 @@ class Health_check_acc {
     }
     
     // check if save_session_path is writable
-    if (!is_writable(session_save_path())) {
-      $vars['errors']["Your PHP session_save_path is not writable."] = "chmod 775 " . session_save_path();
+    if (!@is_writable(session_save_path())) {
+      $vars['errors']["Your PHP session_save_path is not writable"] = "chmod 775 " . session_save_path();
     }
     
     // check if extensions are installed
     if ($this->EE->config->item('allow_extensions') != 'y') {
       $vars['errors']["EE extensions are not allowed."] = 'Set $config["allow_extensions"] = "y"; in /system/expressionengine/config/config.php';
     }
-    
-    return($vars); 
+
+    // check if upload directories are writable
+    $dirs = $this->_get_file_upload_paths();
+    $dirs = $dirs['file_uploads'];
+
+    foreach ($dirs as $key => $dir)
+    {
+    	if (!@is_writable($dir['server_path'])) {
+    		$vars['errors']["The " . $dir['name'] . " file upload directory is not writable"] = "chmod 777 " . $dir['server_path'];
+    	}
+    }
+
+    // watch out for open_basedir
+	if (ini_get('open_basedir') != '')
+	{
+		$vars['errors']["PHP is using open_basedir restrictions, so we may have trouble detecting if file upload directories are not writable."] = "consider disabling PHP open_basedir in php.ini ";	}
+
+    return $vars; 
   }
-  
+
+
 	// --------------------------------------------------------------------
   // I borrowed these from acc.expressionengine_info.php. Thanks @EllisLab.
   //
