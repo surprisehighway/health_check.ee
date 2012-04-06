@@ -14,7 +14,7 @@
       <td><?= $ee_msm?></td>
     </tr>
     <tr>
-      <td class="label">extensions</td>
+      <td class="label">Extensions</td>
       <td><?= $ee_extensions ?></td>
     </tr>
     <tr>
@@ -26,7 +26,7 @@
       <td><?= $mysql_version ?></td>
     </tr>
     <tr>
-      <td class="label">server</td>
+      <td class="label">Server</td>
       <td><?= $webserver ?></td>
     </tr>
   </table>
@@ -38,19 +38,19 @@
       </tr>
     </thead>
     <tr>
-      <td class="label">sites</td>
+      <td class="label">Sites</td>
       <td><?= $ee_sites ?></td>
     </tr>
     <tr>
-      <td class="label">channels</td>
+      <td class="label">Channels</td>
       <td><?= $ee_channels ?></td>
     </tr>
     <tr>
-      <td class="label">entries</td>
+      <td class="label">Entries</td>
       <td><?= $ee_entries ?></td>
     </tr>
     <tr>
-      <td class="label">comments</td>
+      <td class="label">Comments</td>
       <td><?= $ee_comments ?></td>
     </tr>
   </table>
@@ -76,11 +76,11 @@
       </tr>
     </thead>
     <tr>
-      <td class="label">browser</td>
+      <td class="label">Browser</td>
       <td><?= $browser?></td>
     </tr>
     <tr>
-      <td class="label">platform</td>
+      <td class="label">Platform</td>
       <td><?= $platform ?></td>
     </tr>
   </table>

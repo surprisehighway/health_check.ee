@@ -12,7 +12,7 @@ TODO:
  * Health Check Accessory
  *
  * @package			Health Check
- * @version			0.1.0
+ * @version			0.1.1
  * @author			Jason Siffring <http://surprisehighway.com>
  * @copyright 	Copyright (c) 2010 Jason Siffring <http://surprisehighway.com>
  * @license 		http://creativecommons.org/licenses/by-nc-sa/3.0/ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -104,13 +104,14 @@ class Health_check_acc {
     $row = $query->row();
     $vars['ee_entries'] = $row->count;
     
-    $query = $this->CI->db->query('SELECT count(*) AS count FROM exp_comments');
+    $query = $this->CI->db->query("SHOW TABLES LIKE 'exp_comments'");
     if ($query->num_rows() > 0) {
+      $query = $this->CI->db->query('SELECT count(*) AS count FROM exp_comments');
       $row = $query->row();
       $vars['ee_comments'] = $row->count;
     } else {
       // comment module isn't installed
-      $vars['ee_comments'] = 0;
+      $vars['ee_comments'] = "not installed";
     }
     
     // get some php info
