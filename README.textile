@@ -1,0 +1,30 @@
+h1. Health Check Accessory for ExpressionEngine 2
+"Surprise Highway":http://surprisehighway.com
+
+This accessory displays information about the configuration and general health of your EE system. It also checks the file permissions of key system files and upload directories and lets you know if anything is setup incorrectly.
+
+It may be useful for system maintenance and troubleshooting. One possible use is to copy and paste the output into an EE or add-on support request so you can get help faster.
+
+h2. License
+Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
+http://creativecommons.org/licenses/by-nc-sa/3.0/ 
+
+This accessory displays information about the configuration and general health of your EE system. It may be useful for system maintenance and troubleshooting. One possible use is to copy and paste the output into an EE or add-on support request so you can get help faster.
+
+h2. Installation
+
+# Upload the themes/third_party/health_check directory to /themes/third_party/ on your server. (Create the third_party directory if necessary.)
+
+# Upload the health_check directory to /system/expressionengine/third_party/ on your server.
+
+# In the control panel, go to Add-Ons > Accessories and click Install.
+
+Optional: To limit the user groups or pages that see this accessory (e.g. limit it to Super Admins) click Health Check on the Accessories page after installing it.
+
+h2. Changelog
+
+Version 0.1.0 - 11/4/2010
+
+ * Initial release
+ * Displays EE info, EE stats, PHP info, browser info, installed add-ons & path info
+ * Checks permissions for config.php, database.php and cache directory. Looks to see if PHP session_save_path() is writable and if EE extensions are installed.

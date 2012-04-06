@@ -1,0 +1,17 @@
+#health_check .accessorySection {border: none;}
+#health_check .accessorySection h5 {margin-bottom: 8px !important;}
+#health_check p,
+#health_check table,
+#health_check ul {margin-bottom: 10px;}
+#health_check table {width: 100%;}
+#health_check th {text-align: left; border-bottom: 1px solid #445058; padding: 2px 5px 2px 0; color: #fff;}
+#health_check td {padding: 2px 5px 2px 0;}
+#health_check td.label {width: 150px;}
+#health_check .section {float: left; margin-right: 15px;}
+#health_check .section.last {margin-right: 0;}
+#health_check li {padding: 2px 0 !important;}
+#health_check strong {display: block; border-bottom: 1px solid #445058; padding: 2px 0; color: #fff;}
+#health_check .status li {color: #fff; border-left: 5px solid #445058; padding-left: 10px !important; margin-bottom: 5px; font-size: 12px;}
+#health_check .status p {font-size: 12px;}
+#health_check .pathinfo {clear: both;}
+#health_check .pathinfo td.label {width: 50px;}
