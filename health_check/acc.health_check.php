@@ -200,13 +200,22 @@ class Health_check_acc {
       'fieldtypes'  => $this->EE->addons->get_installed('fieldtypes'),
     );
 
+	// get plugins if we're not on the CP's plugin page
+	// yeah, nasty hack, bt the darn addon mdoel won't let you get_plugins() more than once
+	if (isset($_GET['C']) && isset($_GET['D']) && $_GET['C'] == 'addons_plugins' && $_GET['D'] == 'cp')
+	{
+		$vars['plugins'][] = array(
+			'pi_name' => "We can't display plugins<br/> on this page due to<br/> a limitation in EE.",
+			'pi_version' => ""
+			);
+	} else {
+		$vars['plugins'] = $this->EE->addons_model->get_plugins();
+	}
+
     ksort($vars['modules']);
 	ksort($vars['accessories']);
 	ksort($vars['extensions']);
 	ksort($vars['fieldtypes']);
-
-	// get plugins
-	$vars['plugins'] = $this->EE->addons_model->get_plugins();
 	ksort($vars['plugins']);
 
     return($vars);
