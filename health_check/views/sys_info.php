@@ -35,6 +35,30 @@
   <table>
     <thead>
       <tr>
+  	<th colspan="2">File permission constants</th>
+      </tr>
+    </thead>
+    <tr>
+      <td class="label">FILE_READ_MODE</td>
+      <td><?= decoct(FILE_READ_MODE) ?></td>
+    </tr>
+    <tr>
+      <td class="label">FILE_WRITE_MODE</td>
+      <td><?= decoct(FILE_WRITE_MODE) ?></td>
+    </tr>
+    <tr>
+      <td class="label">DIR_READ_MODE</td>
+      <td><?= decoct(DIR_READ_MODE) ?></td>
+    </tr>
+    <tr>
+      <td class="label">DIR_WRITE_MODE</td>
+      <td><?= decoct(DIR_WRITE_MODE) ?></td>
+    </tr>
+  </table>
+  
+  <table>
+    <thead>
+      <tr>
         <th colspan="2">EE Stats</th>
       </tr>
     </thead>
