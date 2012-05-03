@@ -17,6 +17,11 @@
 #health_check .status p {font-size: 12px;}
 #health_check .pathinfo {clear: both;}
 #health_check .pathinfo td.label {width: 50px;}
+#health_check .chunk {
+	clear: both; 
+	margin-bottom: 16px;
+	overflow: auto;
+}
 
 #accessoryTabs li a.health_check {
 	position: relative;

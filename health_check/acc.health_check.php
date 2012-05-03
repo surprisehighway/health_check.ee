@@ -52,10 +52,10 @@ class Health_check_acc {
 	    $this->EE->cp->add_to_head('<link rel="stylesheet" type="text/css" media="all" href="' . $css_file . '" />');
 	    
 		// setup the accessory sections
-		$this->sections['Status']       = $this->EE->load->view('status', $this->_check_status(), TRUE);
-		$this->sections['System Info']  = $this->EE->load->view('sys_info', $this->_system_info(), TRUE);  
-		$this->sections['Add-Ons']      = $this->EE->load->view('addons', $this->_list_addons(), TRUE);
-		$this->sections['File Upload Directories'] = $this->EE->load->view('filemanager', $this->_get_file_upload_paths(), TRUE);
+		$this->sections['Status']  = $this->EE->load->view('status', $this->_check_status(), TRUE);
+		$this->sections['Status'] .= $this->EE->load->view('addons', $this->_list_addons(), TRUE);
+		$this->sections['Status'] .= $this->EE->load->view('filemanager', $this->_get_file_upload_paths(), TRUE);
+		$this->sections['Status'] .= $this->EE->load->view('sys_info', $this->_system_info(), TRUE);
 	}
 
 

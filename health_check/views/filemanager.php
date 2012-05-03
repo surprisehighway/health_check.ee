@@ -1,4 +1,6 @@
-<div class="filemanager">
+<div class="filemanager chunk">
+  <h5>File Upload Directories</h5>
+
   <table>
     <thead>
       <tr>

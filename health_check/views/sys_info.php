@@ -1,4 +1,5 @@
-<div class="sysinfo">
+<div class="sysinfo chunk">
+  <h5>System Info</h5>
   <table>
     <thead>
       <tr>

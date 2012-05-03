@@ -1,4 +1,4 @@
-<div class="status">
+<div class="status chunk">
   <?php 
   if (isset($errors)) {
     if (count($errors) == 1) {
