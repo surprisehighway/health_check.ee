@@ -271,6 +271,11 @@ class Health_check_acc {
 	{
 		$vars['errors']["PHP is using open_basedir restrictions, so we may have trouble detecting if file upload directories are not writable."] = "consider disabling PHP open_basedir in php.ini ";	}
 
+	if ( count($vars['errors']) > 0 )
+	{
+		$this->name = $this->name . '<span class="health_check_badge">' . count($vars['errors']) . '</span>';
+	}
+
     return $vars; 
   }
 
