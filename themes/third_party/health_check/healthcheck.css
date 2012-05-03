@@ -26,9 +26,12 @@
 #accessoryTabs li a.health_check {
 	position: relative;
 }
-.health_check_badge {
+#accessoryTabs .health_check_badge {
 	position: absolute;
 	top: -16px;
+}
+.health_check_badge {
+	
 	font-size: 10.998px;
 	font-weight: bold;
 	line-height: 14px;
