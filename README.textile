@@ -11,8 +11,6 @@ h2. License
 Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
 http://creativecommons.org/licenses/by-nc-sa/3.0/ 
 
-This accessory displays information about the configuration and general health of your EE system. It may be useful for system maintenance and troubleshooting. One possible use is to copy and paste the output into an EE or add-on support request so you can get help faster.
-
 h2. Installation
 
 # Upload the themes/third_party/health_check directory to /themes/third_party/ on your server. (Create the third_party directory if necessary.)
