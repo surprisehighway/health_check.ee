@@ -232,9 +232,9 @@ class Health_check_acc {
 
     // an array of files or directories and the required permission for each
     $files = array(
-      APPPATH . 'config/config.php' => 666,
-      APPPATH . 'config/database.php' => 666,
-      APPPATH . 'cache' => 777
+      APPPATH . 'config/config.php' => decoct(FILE_WRITE_MODE),
+      APPPATH . 'config/database.php' => decoct(FILE_WRITE_MODE),
+      APPPATH . 'cache' => decoct(DIR_WRITE_MODE)
       
     );    
     // check each file to see if they have the right permission
@@ -248,7 +248,7 @@ class Health_check_acc {
     
     // check if save_session_path is writable
     if (!@is_writable(session_save_path())) {
-      $vars['errors']["Your PHP session_save_path is not writable"] = "chmod 775 " . session_save_path();
+      $vars['errors']["Your PHP session_save_path is not writable"] = "chmod ". decoct(DIR_WRITE_MODE) ." " . session_save_path();
     }
     
     // check if extensions are installed
@@ -263,7 +263,7 @@ class Health_check_acc {
     foreach ($dirs as $key => $dir)
     {
     	if (!@is_writable($dir['server_path'])) {
-    		$vars['errors']["The " . $dir['name'] . " file upload directory is not writable"] = "chmod 777 " . $dir['server_path'];
+    		$vars['errors']["The " . $dir['name'] . " file upload directory is not writable"] = "chmod ". decoct(DIR_WRITE_MODE) ." " . $dir['server_path'];
     	}
     }
 
@@ -272,7 +272,7 @@ class Health_check_acc {
 	{
 		$vars['errors']["PHP is using open_basedir restrictions, so we may have trouble detecting if file upload directories are not writable."] = "consider disabling PHP open_basedir in php.ini ";	}
 
-	if (count($vars['errors']) > 0 )
+	if ( isset($vars['errors']) && count($vars['errors']) > 0 )
 	{
 		$this->name = $this->name . '<span class="health_check_badge">' . count($vars['errors']) . '</span>';
 	}
