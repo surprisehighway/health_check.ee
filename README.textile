@@ -21,6 +21,10 @@ Optional: To limit the user groups or pages that see this accessory (e.g. limit 
 
 h2. Changelog
 
+Version 0.1.4 - 5/7/2012
+* Changed to CodeIgniter constants for checking file and directory write permissions instead of assuming 777, 666, etc. (Thanks @robsonsobral!)
+* Fixed a bug that threw a PHP error if there weren't any issues found. (Ironic.)
+
 Version 0.1.3 - 5/2/2012
 * Fixed a bug that prevented plugins from being listed on the control panel's Addons > Plugins page
 * Added a badge that shows the number of issues on the accessory's title so you can see status at a glance
