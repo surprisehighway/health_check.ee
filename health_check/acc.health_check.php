@@ -22,7 +22,7 @@ class Health_check_acc {
 
 	var $name         = 'Health Check';
 	var $id           = 'health_check';
-	var $version      = '0.1.2';
+	var $version      = '0.1.3';
 	var $description  = 'Displays information about the configuration and general health of your EE system. Useful for maintenance and troubleshooting. One possible use is to copy and paste the output into an EE or add-on support request so you can get help faster.';
 	var $sections     = array();
 
@@ -52,10 +52,10 @@ class Health_check_acc {
 	    $this->EE->cp->add_to_head('<link rel="stylesheet" type="text/css" media="all" href="' . $css_file . '" />');
 	    
 		// setup the accessory sections
-		$this->sections['Status']       = $this->EE->load->view('status', $this->_check_status(), TRUE);
-		$this->sections['System Info']  = $this->EE->load->view('sys_info', $this->_system_info(), TRUE);  
-		$this->sections['Add-Ons']      = $this->EE->load->view('addons', $this->_list_addons(), TRUE);
-		$this->sections['File Upload Directories'] = $this->EE->load->view('filemanager', $this->_get_file_upload_paths(), TRUE);
+		$this->sections['Status']  = $this->EE->load->view('status', $this->_check_status(), TRUE);
+		$this->sections['Status'] .= $this->EE->load->view('addons', $this->_list_addons(), TRUE);
+		$this->sections['Status'] .= $this->EE->load->view('filemanager', $this->_get_file_upload_paths(), TRUE);
+		$this->sections['Status'] .= $this->EE->load->view('sys_info', $this->_system_info(), TRUE);
 	}
 
 
@@ -200,13 +200,22 @@ class Health_check_acc {
       'fieldtypes'  => $this->EE->addons->get_installed('fieldtypes'),
     );
 
+	// get plugins if we're not on the CP's plugin page
+	// yeah, nasty hack, bt the darn addon mdoel won't let you get_plugins() more than once
+	if (isset($_GET['C']) && isset($_GET['D']) && $_GET['C'] == 'addons_plugins' && $_GET['D'] == 'cp')
+	{
+		$vars['plugins'][] = array(
+			'pi_name' => "We can't display plugins<br/> on this page due to<br/> a limitation in EE.",
+			'pi_version' => ""
+			);
+	} else {
+		$vars['plugins'] = $this->EE->addons_model->get_plugins();
+	}
+
     ksort($vars['modules']);
 	ksort($vars['accessories']);
 	ksort($vars['extensions']);
 	ksort($vars['fieldtypes']);
-
-	// get plugins
-	$vars['plugins'] = $this->EE->addons_model->get_plugins();
 	ksort($vars['plugins']);
 
     return($vars);
@@ -261,6 +270,11 @@ class Health_check_acc {
 	if (ini_get('open_basedir') != '')
 	{
 		$vars['errors']["PHP is using open_basedir restrictions, so we may have trouble detecting if file upload directories are not writable."] = "consider disabling PHP open_basedir in php.ini ";	}
+
+	if ( count($vars['errors']) > 0 )
+	{
+		$this->name = $this->name . '<span class="health_check_badge">' . count($vars['errors']) . '</span>';
+	}
 
     return $vars; 
   }

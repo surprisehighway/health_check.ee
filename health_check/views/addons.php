@@ -1,4 +1,6 @@
-<div class="addons">
+<div class="addons chunk">
+  <h5>Add-Ons</h5>
+
   <div class="section">
     <strong>Modules</strong>
     <ul>
@@ -15,14 +17,6 @@
       <li><?= $extension['name'] ?> <?= $extension['version'] ?></li>
     <?php } ?>
     </ul>
-
-    <strong>Accessories</strong>
-    <ul>
-    <?php foreach($accessories as $accessory) { ?>
-      <li><?= $accessory['name'] ?> <?= $accessory['accessory_version'] ?></li>
-    <?php } ?>
-    </ul>
-    
   </div>
 
   <div class="section">  
@@ -34,11 +28,20 @@
     </ul>
   </div>
 
-  <div class="section last">  
+  <div class="section">  
     <strong>Field Types</strong>
     <ul>
     <?php foreach($fieldtypes as $fieldtype) { ?>
       <li><?= $fieldtype['name'] ?> <?= $fieldtype['version'] ?></li>
+    <?php } ?>
+    </ul>
+  </div>
+
+  <div class="section last">
+    <strong>Accessories</strong>
+    <ul>
+    <?php foreach($accessories as $accessory) { ?>
+      <li><?= $accessory['name'] ?> <?= $accessory['accessory_version'] ?></li>
     <?php } ?>
     </ul>
   </div>

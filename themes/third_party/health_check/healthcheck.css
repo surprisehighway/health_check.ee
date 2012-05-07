@@ -17,3 +17,32 @@
 #health_check .status p {font-size: 12px;}
 #health_check .pathinfo {clear: both;}
 #health_check .pathinfo td.label {width: 50px;}
+#health_check .chunk {
+	clear: both; 
+	margin-bottom: 16px;
+	overflow: auto;
+}
+
+#accessoryTabs li a.health_check {
+	position: relative;
+}
+#accessoryTabs .health_check_badge {
+	position: absolute;
+	top: -16px;
+}
+.health_check_badge {
+	
+	font-size: 10.998px;
+	font-weight: bold;
+	line-height: 14px;
+	color: white;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	white-space: nowrap;
+	vertical-align: baseline;
+	background-color: #999;
+	padding: 1px 9px 2px;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	border-radius: 9px;
+	background-color: #F89406;
+}
