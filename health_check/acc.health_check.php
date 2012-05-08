@@ -12,7 +12,7 @@ TODO:
  * Health Check Accessory
  *
  * @package			Health Check
- * @version			0.1.2
+ * @version			0.1.4
  * @author			Jason Siffring <http://surprisehighway.com>
  * @copyright 	Copyright (c) 2010 Jason Siffring <http://surprisehighway.com>
  * @license 		http://creativecommons.org/licenses/by-nc-sa/3.0/ Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License
@@ -22,7 +22,7 @@ class Health_check_acc {
 
 	var $name         = 'Health Check';
 	var $id           = 'health_check';
-	var $version      = '0.1.3';
+	var $version      = '0.1.4';
 	var $description  = 'Displays information about the configuration and general health of your EE system. Useful for maintenance and troubleshooting. One possible use is to copy and paste the output into an EE or add-on support request so you can get help faster.';
 	var $sections     = array();
 
